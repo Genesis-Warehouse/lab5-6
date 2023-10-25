@@ -1,5 +1,8 @@
 <template>
-  <registration-page></registration-page>>
+  <div>
+  <registration-page></registration-page>
+  <authorization-page></authorization-page>
+  </div>
 </template>
 
 <style>
@@ -15,11 +18,13 @@
 
 <script>
 import RegistrationPage from '@/components/RegistrationPage.vue'; // Update the path if necessary
+import AuthorizationPage from '@/components/AuthorizationPage.vue'; // Update the path if necessary
 
 export default {
   name: 'App',
   components: {
-    RegistrationPage, // Register the component
-  },
+    RegistrationPage,
+    AuthorizationPage
+},
 }
 </script>
