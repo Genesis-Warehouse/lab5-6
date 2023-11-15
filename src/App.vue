@@ -1,7 +1,8 @@
 <template>
   <div>
-  <registration-page></registration-page>
-  <authorization-page></authorization-page>
+  <!-- <registration-page></registration-page> -->
+  <!-- <authorization-page></authorization-page> -->
+  <main-page/>
   </div>
 </template>
 
@@ -17,14 +18,22 @@
 </style>
 
 <script>
-import RegistrationPage from '@/components/RegistrationPage.vue'; // Update the path if necessary
-import AuthorizationPage from '@/components/AuthorizationPage.vue'; // Update the path if necessary
+import MainPage from './components/MainPage.vue';
+// import RegistrationPage from '@/components/RegistrationPage.vue'; // Update the path if necessary
+// import AuthorizationPage from '@/components/AuthorizationPage.vue'; // Update the path if necessary
 
 export default {
   name: 'App',
   components: {
-    RegistrationPage,
-    AuthorizationPage
+    MainPage
+    // RegistrationPage,
+    // AuthorizationPage
 },
 }
 </script>
+<style>
+body{
+  padding: 0px;
+  margin: 0px;
+}
+</style>
