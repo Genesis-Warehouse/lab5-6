@@ -1,4 +1,4 @@
-# skladogenezis
+# Labs 5-6
 
 ## Project setup
 ```
