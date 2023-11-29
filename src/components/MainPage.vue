@@ -9,6 +9,7 @@
       />
       <StorageItems :items="storageItems" />
       <!-- Остальной контент страницы -->
+      <TestLala></TestLala>
     </div>
   </template>
   
@@ -16,12 +17,14 @@
   import CategoryList from './CategoryList.vue';
   import FilterLine from './FilterLine.vue';
   import StorageItems from './StorageItems.vue';
+  import TestLala from './TestLala.vue'
   export default {
     name: 'MainPage',
     components: {
       CategoryList,
       FilterLine,
-      StorageItems
+      StorageItems,
+      TestLala
     },
     data() {
       return {
