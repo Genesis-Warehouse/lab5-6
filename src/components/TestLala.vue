@@ -18,7 +18,7 @@ import axios from 'axios';
     // },
     methods: {
       onClickedButton() {
-        axios.get('http://localhost:5000/products/all').then(response =>(console.log(response)));
+        axios.get('http://localhost:8000/products/all').then(response =>(console.log(response)));
         // Проверяем get запрос
       }
     }

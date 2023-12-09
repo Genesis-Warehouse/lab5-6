@@ -1,44 +1,49 @@
 <template>
     <div class="main-page">
-      <CategoryList :categories="categories" />
-      <FilterLine
+      <div class="sidebar">
+        <CategoryList :categories="categories"/>  
+      </div>
+      <div class="content">
+        <FilterLine
         :filters="filters"
         :categoryTitle="selectedCategory.title"
         :selectedFilterId="selectedFilterId"
         @filter-selected="onFilterSelected"
       />
-      <StorageItems :items="storageItems" />
-      <!-- Остальной контент страницы -->
-      <TestLala></TestLala>
+      <!-- <StorageItems :items="storageItems" /> -->
+        <!-- Остальной контент страницы -->
+        <ContentList :selectedCategory="this.selectedCategory"></ContentList>
+      </div>
     </div>
   </template>
   
   <script>
   import CategoryList from './CategoryList.vue';
   import FilterLine from './FilterLine.vue';
-  import StorageItems from './StorageItems.vue';
-  import TestLala from './TestLala.vue'
+  // import StorageItems from './StorageItems.vue';
+  import ContentList from './ContentList.vue';
   export default {
     name: 'MainPage',
     components: {
       CategoryList,
       FilterLine,
-      StorageItems,
-      TestLala
+      // StorageItems,
+      ContentList
     },
     data() {
       return {
+        selectedCategory:3,
         categories: [
-          { id: '1', name: 'Category 1' },
-          { id: '2', name: 'Category 2' },
-          { id: '3', name: 'Category 3' }
+          { id: '1', name: 'Продукты' },
+          { id: '2', name: 'Партии' },
+          { id: '3', name: 'Разделы склада' }
         ],
         filters: [
-          { id: 'filter1', name: 'Filter 1' },
-          { id: 'filter2', name: 'Filter 2' },
-          { id: 'filter3', name: 'Filter 3' }
+          { id: '1', name: 'f1' },
+          { id: '2', name: 'f2' },
+          { id: '3', name: 'f3' }
         ],
-        selectedCategory: { id: '1', title: 'Category 1' },
+        // selectedCategory: { id: '1', title: 'Category 1' },  
         selectedFilterId: '',
         storageItems: [
         { id: 'item1', name: 'Item 1', details: 'Details for Item 1', isExpanded: false },
@@ -59,10 +64,15 @@
   </script>
   
   <style scoped>
-  .main-page {
+  .content {
     display:flexbox;
     justify-content: space-between;
-    padding: 0px;
+    padding: 0px 0px 0px 200px;
     margin: 0px;
+  }
+  .sidebar{
+    width: 200px;
+    position: fixed;
+    height: 100%;
   }
   </style>

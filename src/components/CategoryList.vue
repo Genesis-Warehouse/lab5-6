@@ -1,6 +1,6 @@
 <template>
     <div class="category-list">
-      <h2 class="category-list-title">Categories</h2>
+      <h2 class="category-list-title">Категории</h2>
       <ul class="category-list-items">
         <li v-for="category in categories" :key="category.id" class="category-list-item">
           {{ category.name }}
@@ -27,8 +27,6 @@
     padding: 15px;
     border-radius: 5px;
     height: 100%;
-    width: 200px;
-    position: fixed;
   }
   
   .category-list-title {
