@@ -1,7 +1,7 @@
 <template>
     <div class="main-page">
       <div class="sidebar">
-        <CategoryList :categories="categories"/>  
+        <CategoryList @update-selected-category="updateSelectedCategory"/>  
       </div>
       <div class="content">
         <FilterLine
@@ -58,6 +58,9 @@
       onFilterSelected(filterId) {
         this.selectedFilterId = filterId;
         // Здесь можно обработать выбор фильтра и выполнить необходимые действия
+      },
+      updateSelectedCategory(selCat){
+        this.selectedCategory=selCat;
       }
     }
   };
