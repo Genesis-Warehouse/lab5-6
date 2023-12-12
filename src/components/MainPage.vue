@@ -10,9 +10,10 @@
         :selectedFilterId="selectedFilterId"
         @filter-selected="onFilterSelected"
       />
+      <PopupWindow :selectedCategory="selectedCategory" :popupSettings="popupSettings" ref="popupRef"></PopupWindow>
       <!-- <StorageItems :items="storageItems" /> -->
         <!-- Остальной контент страницы -->
-        <ContentList :selectedCategory="this.selectedCategory"></ContentList>
+        <ContentList :selectedCategory="this.selectedCategory" @editContent="editContent" @deleteContent="deleteContent" @postNewElement="postNewElement"></ContentList>
       </div>
     </div>
   </template>
@@ -22,17 +23,23 @@
   import FilterLine from './FilterLine.vue';
   // import StorageItems from './StorageItems.vue';
   import ContentList from './ContentList.vue';
+  import PopupWindow from './PopupWindow.vue';
   export default {
     name: 'MainPage',
     components: {
       CategoryList,
       FilterLine,
       // StorageItems,
-      ContentList
+      ContentList,
+      PopupWindow
     },
     data() {
       return {
         selectedCategory:3,
+        popupSettings:{
+        changedItem:{},
+        ppd:0
+      },
         categories: [
           { id: '1', name: 'Продукты' },
           { id: '2', name: 'Партии' },
@@ -45,13 +52,13 @@
         ],
         // selectedCategory: { id: '1', title: 'Category 1' },  
         selectedFilterId: '',
-        storageItems: [
-        { id: 'item1', name: 'Item 1', details: 'Details for Item 1', isExpanded: false },
-        { id: 'item2', name: 'Item 2', details: 'Details for Item 2', isExpanded: false },
-        { id: 'item3', name: 'Item 3', details: 'Details for Item 3', isExpanded: false },
-        { id: 'item4', name: 'Item 4', details: 'Details for Item 3', isExpanded: false },
-        { id: 'item5', name: 'Item 5', details: 'Details for Item 3', isExpanded: false }
-      ]
+      //   storageItems: [
+      //   { id: 'item1', name: 'Item 1', details: 'Details for Item 1', isExpanded: false },
+      //   { id: 'item2', name: 'Item 2', details: 'Details for Item 2', isExpanded: false },
+      //   { id: 'item3', name: 'Item 3', details: 'Details for Item 3', isExpanded: false },
+      //   { id: 'item4', name: 'Item 4', details: 'Details for Item 3', isExpanded: false },
+      //   { id: 'item5', name: 'Item 5', details: 'Details for Item 3', isExpanded: false }
+      // ]
       };
     },
     methods: {
@@ -61,6 +68,20 @@
       },
       updateSelectedCategory(selCat){
         this.selectedCategory=selCat;
+      },
+      editContent(item){
+        this.$refs.popupRef.openPopup();
+        this.popupSettings.changedItem=item;
+        this.popupSettings.ppd=2;
+      },
+      deleteContent(item){
+        this.$refs.popupRef.openPopup();
+        this.popupSettings.changedItem=item;
+        this.popupSettings.ppd=3;
+      },
+      postNewElement(){
+        this.$refs.popupRef.openPopup();
+        this.popupSettings.ppd=1;
       }
     }
   };

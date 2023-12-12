@@ -1,13 +1,13 @@
 <template>
     <div>
       <div v-if="selectedCategory === 1">
-        <ProductList />
+        <ProductList @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else-if="selectedCategory === 2">
-        <BatchesList />
+        <BatchesList @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else-if="selectedCategory === 3">
-        <WarehouseSections />
+        <WarehouseSections @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else>
         <p>Добро пожаловать! Выберите интересующую вас категорию.</p>
@@ -34,6 +34,17 @@
       BatchesList,
       WarehouseSections,
     },
+    methods:{
+      editContent(content){
+        this.$emit('editContent',content);
+      },
+      deleteContent(content){
+        this.$emit('deleteContent',content);
+      },
+      postNewElement(){
+        this.$emit('postNewElement');
+      }
+    }
   };
   </script>
   <style scoped>

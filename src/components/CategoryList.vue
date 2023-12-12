@@ -3,10 +3,10 @@
       <h2 class="category-list-title">Категории</h2>
       <ul class="category-list-items">
         <li @click="selected1" :class="{'is-selected':selectedCategory===1}" class="category-list-item">
-          Партии      
+          Продукты      
         </li>
         <li @click="selected2" :class="{'is-selected':selectedCategory===2}" class="category-list-item">
-          Продукты
+          Партии
         </li>
         <li @click="selected3" :class="{'is-selected':selectedCategory===3}" class="category-list-item">
           Разделы склада
@@ -50,7 +50,6 @@
   .category-list {
     background-color: #35495e;
     padding: 15px;
-    border-radius: 5px;
     height: 100%;
   }
 

@@ -1,40 +1,46 @@
 <template>
     <div class="product-list">
       <h1>Список товаров</h1>
+      <PostButton></PostButton>
       <ul>
-        <li v-for="product in products" :key="product.id">
-          <span class="product-name">{{ product.name }}</span>
-          <span class="product-price">{{ product.price }} руб.</span>
-        </li>
+        <ProductElement @editClicked="editClicked" @deleteClicked="deleteClicked" v-for="product in products" :key="product.id" :product="product"></ProductElement>
       </ul>
     </div>
   </template>
   
   <script>
-  import axios from 'axios';
-  
+  import axiosConfig from '@/axiosConfig';
+  import ProductElement from './ProductElement.vue';
+  import PostButton from './PostButton.vue';
   export default {
     name: 'ProductList',
     data() {
-      return {
-        products: [],
-      };
+        return {
+            products: [],
+        };
     },
     created() {
-      this.fetchData();
+        this.fetchData();
     },
     methods: {
-      fetchData() {
-        axios.get('http://localhost:8000/products/all')
-          .then(response => {
-            this.products = response.data;
-          })
-          .catch(error => {
-            console.error('Ошибка при загрузке данных:', error);
-          });
-      },
+        fetchData() {
+            axiosConfig.get('/products/all')
+                .then(response => {
+                this.products = response.data;
+            })
+                .catch(error => {
+                console.error('Ошибка при загрузке данных:', error);
+            });
+        },
+        editClicked(product){
+          this.$emit('editContent',product);
+        },
+        deleteClicked(product){
+          this.$emit('deleteContent',product);
+        }
     },
-  };
+    components: { ProductElement, PostButton }
+};
   </script>
   
   <style scoped>

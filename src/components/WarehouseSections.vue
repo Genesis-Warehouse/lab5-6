@@ -1,17 +1,17 @@
 <template>
     <div class="product-list">
       <h1>Разделы склада</h1>
+      <PostButton></PostButton>
       <ul>
-        <li v-for="section in sections" :key="section.id">
-          <span class="section-name">{{ section.name }}</span>
-        </li>
+       <WarehouseSection @editClicked="editClicked" @deleteClicked="deleteClicked" v-for="section in sections" :key="section.id" :section="section"></WarehouseSection>
       </ul>
     </div>
   </template>
   
   <script>
-  import axios from 'axios';
-  
+  import PostButton from './PostButton.vue';
+  import axiosConfig from '@/axiosConfig';
+  import WarehouseSection from './WarehouseSection.vue';
   export default {
     name: 'WarehouseSections',
     data() {
@@ -24,7 +24,7 @@
     },
     methods: {
       fetchData() {
-        axios.get('http://localhost:8000/warehouse_sections/all')
+        axiosConfig.get('/warehouse_sections/all')
           .then(response => {
             this.sections = response.data;
           })
@@ -32,7 +32,17 @@
             console.error('Ошибка при загрузке данных:', error);
           });
       },
+      editClicked(section){
+        this.$emit('editContent',section);
+      },
+      deleteClicked(section){
+        this.$emit('deleteContent',section);
+      }
     },
+    components:{
+    WarehouseSection,
+    PostButton
+}
   };
   </script>
   
