@@ -24,12 +24,17 @@
     align-items: center;
     justify-content: center;
     background-color: #8FB8D6;
+    color: #164B70;
     padding: 10px;
     border-radius: 4px;
   }
   
   .post_button span {
     margin-right: 10px;
-    color: #164B70;
+  }
+  .post_button:hover{
+    background-color: #164B70;
+    color: #8FB8D6;
+    cursor: pointer;
   }
 </style>

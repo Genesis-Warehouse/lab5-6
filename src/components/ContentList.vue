@@ -1,13 +1,13 @@
 <template>
     <div>
       <div v-if="selectedCategory === 1">
-        <ProductList @deleteContent="deleteContent" @editContent="editContent"/>
+        <ProductList @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else-if="selectedCategory === 2">
         <BatchesList @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else-if="selectedCategory === 3">
-        <WarehouseSections @deleteContent="deleteContent" @editContent="editContent"/>
+        <WarehouseSections @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else>
         <p>Добро пожаловать! Выберите интересующую вас категорию.</p>

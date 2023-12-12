@@ -112,10 +112,23 @@ export default {
       this.showPopup = true;
     },
     closePopup() {
+      
       this.showPopup = false;
     },
     submitEditProductForm() {
       // Выполните put-запрос через axios с использованием данных из editedItem
+      if(this.popupSettings.ppd===1){
+      axiosConfig.post(`/products/`,this.editedProductItem)
+        .then(response => {
+          console.log('Успешно добавлено', response.data);
+          this.closePopup();
+        })
+        .catch(error => {
+          console.log(this.editedProductItem)
+          console.error('Ошибка при добавлении', error);
+        });
+      }
+      else if(this.popupSettings.ppd===2){
       axiosConfig.put(`/products/${this.popupSettings.changedItem.id}`, this.editedProductItem)
         .then(response => {
           console.log('Успешно сохранено', response.data);
@@ -124,10 +137,22 @@ export default {
         .catch(error => {
           console.error('Ошибка при сохранении', error);
         });
+      }
     },
     submitEditBatchForm() {
+      if(this.popupSettings.ppd===1){
+      axiosConfig.post(`/batches/`, this.editedBatchItem)
+        .then(response => {
+          console.log('Успешно добавлено', response.data);
+          this.closePopup();
+        })
+        .catch(error => {
+          console.error('Ошибка при добавлении', error);
+        });
+      }
+      else if(this.popupSettings.ppd===2){
       // Выполните put-запрос через axios с использованием данных из editedItem
-      axiosConfig.put(`/batches/${this.popupSettings.changedItem.id}`, this.editedWarehouseSection)
+      axiosConfig.put(`/batches/${this.popupSettings.changedItem.id}`,  this.editedBatchItem)
         .then(response => {
           console.log('Успешно сохранено', response.data);
           this.closePopup();
@@ -135,8 +160,19 @@ export default {
         .catch(error => {
           console.error('Ошибка при сохранении', error);
         });
+      }
     },
     submitEditWarehouseSectionsForm() {
+      if(this.popupSettings.ppd===1){
+      axiosConfig.post(`/warehouse_sections/`,this.editedWarehouseSection)
+        .then(response => {
+          console.log('Успешно добавлено', response.data);
+          this.closePopup();
+        })
+        .catch(error => {
+          console.error('Ошибка при добавлении', error);
+        });
+      }else if(this.popupSettings.ppd===2){
       // Выполните put-запрос через axios с использованием данных из editedItem
       axiosConfig.put(`/warehouse_sections/${this.popupSettings.changedItem.id}`, this.editedBatchItem)
         .then(response => {
@@ -146,7 +182,37 @@ export default {
         .catch(error => {
           console.error('Ошибка при сохранении', error);
         });
+      }
     },
+    deleteItem(){
+      if(this.selectedCategory===1){
+      axiosConfig.delete(`/products/${this.popupSettings.changedItem.id}`).then(response => {
+          console.log('Успешно удалено', response.data);
+          this.closePopup();
+        })
+        .catch(error => {
+          console.error('Ошибка при удалении', error);
+        });
+    }
+    else if(this.selectedCategory===2){
+      axiosConfig.delete(`/batches/${this.popupSettings.changedItem.id}`).then(response => {
+          console.log('Успешно удалено', response.data);
+          this.closePopup();
+        })
+        .catch(error => {
+          console.error('Ошибка при удалении', error);
+        });
+    }
+    else if(this.selectedCategory===3){
+      axiosConfig.delete(`/warehouse_sections/${this.popupSettings.changedItem.id}`).then(response => {
+          console.log('Успешно удалено', response.data);
+          this.closePopup();
+        })
+        .catch(error => {
+          console.error('Ошибка при удалении', error);
+        });
+    }
+  }
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="product-list">
       <h1>Разделы склада</h1>
-      <PostButton></PostButton>
+      <PostButton @postNewElement="postNewElement"></PostButton>
       <ul>
        <WarehouseSection @editClicked="editClicked" @deleteClicked="deleteClicked" v-for="section in sections" :key="section.id" :section="section"></WarehouseSection>
       </ul>
@@ -37,7 +37,10 @@
       },
       deleteClicked(section){
         this.$emit('deleteContent',section);
-      }
+      },
+        postNewElement(){
+          this.$emit('postNewElement')
+        }
     },
     components:{
     WarehouseSection,
