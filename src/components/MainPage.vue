@@ -10,10 +10,10 @@
         :selectedFilterId="selectedFilterId"
         @filter-selected="onFilterSelected"
       />
-      <PopupWindow :selectedCategory="selectedCategory" :popupSettings="popupSettings" ref="popupRef"></PopupWindow>
+      <PopupWindow :selectedCategory="selectedCategory" :popupSettings="popupSettings" @contentUpdate="contentUpdate" ref="popupRef"></PopupWindow>
       <!-- <StorageItems :items="storageItems" /> -->
         <!-- Остальной контент страницы -->
-        <ContentList :selectedCategory="this.selectedCategory" @editContent="editContent" @deleteContent="deleteContent" @postNewElement="postNewElement"></ContentList>
+        <ContentList ref="contentRef" :selectedCategory="this.selectedCategory" @editContent="editContent" @deleteContent="deleteContent" @postNewElement="postNewElement"></ContentList>
       </div>
     </div>
   </template>
@@ -82,6 +82,9 @@
       postNewElement(){
         this.$refs.popupRef.openPopup();
         this.popupSettings.ppd=1;
+      },
+      contentUpdate(){
+        this.$refs.contentRef.contentUpdate();
       }
     }
   };

@@ -114,6 +114,7 @@ export default {
     closePopup() {
       
       this.showPopup = false;
+      this.$emit('contentUpdate');
     },
     submitEditProductForm() {
       // Выполните put-запрос через axios с использованием данных из editedItem

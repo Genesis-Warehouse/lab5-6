@@ -1,13 +1,13 @@
 <template>
     <div>
       <div v-if="selectedCategory === 1">
-        <ProductList @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
+        <ProductList ref="contentRef" @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else-if="selectedCategory === 2">
-        <BatchesList @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
+        <BatchesList ref="contentRef" @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else-if="selectedCategory === 3">
-        <WarehouseSections @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
+        <WarehouseSections ref="contentRef" @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
       </div>
       <div v-else>
         <p>Добро пожаловать! Выберите интересующую вас категорию.</p>
@@ -43,6 +43,9 @@
       },
       postNewElement(){
         this.$emit('postNewElement');
+      },
+      contentUpdate(){
+        this.$refs.contentRef.fetchData();
       }
     }
   };
