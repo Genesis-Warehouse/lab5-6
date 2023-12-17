@@ -46,7 +46,11 @@
               <input v-model="editedBatchItem.date" type="text" id="date" placeholder="yyyy-mm-dd" required>
 
               <label for="product_id">ID Продукта:</label>
-              <input v-model="editedBatchItem.product_id" type="text" id="product_id" required>
+              <select v-model="editedBatchItem.product_id" id="selectedProduct" type="text" required>
+                <option v-for="product in products" :key="product.id" :value="product.id">
+                {{ product.name }}
+                </option>
+              </select>
               <button type="submit">Сохранить</button>
             </form>
         </template>
@@ -105,11 +109,24 @@ export default {
       capacity: '',
       condition_id: ''
 }, // Создаем копию объекта warehousesection для редактирования
+      products:[]
     };
   },
   methods: {
+    resetForm(){
+      this.editedBatchItem=null;
+      this.editedProductItem=null;
+      this.editedWarehouseSection=null;
+    },
     openPopup() {
       this.showPopup = true;
+      axiosConfig.get(`/products/all`,)
+                .then(response => {
+                this.products = response.data;
+            })
+                .catch(error => {
+                console.error('Ошибка при загрузке данных:', error);
+            });
     },
     closePopup() {
       
@@ -270,6 +287,14 @@ form label {
 }
 
 form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #75AED;
+  border-radius: 4px;
+}
+
+form select {
   width: 100%;
   padding: 8px;
   margin-bottom: 16px;
