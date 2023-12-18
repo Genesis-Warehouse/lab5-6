@@ -1,15 +1,15 @@
 <template>
-    <div class="filter-line">
-      <h2 class="filter-line-title">{{ categoryTitle }}</h2>
-      <div class="filter-line-filters">
+    <div class="sort-line">
+      <h2 class="sort-line-title">{{ categoryTitle }}</h2>
+      <div class="sort-line-sorts">
         <button
-          v-for="filter in filters"
-          :key="filter.id"
-          class="filter-line-filter"
-          @click="selectFilter(filter)"
-          :class="{ 'filter-line-filter-active': filter.id === selectedFilterId }"
+          v-for="sort in sorts"
+          :key="sort.id"
+          class="sort-line-sort"
+          @click="selectSort(sort)"
+          :class="{ 'sort-line-sort-active': sort.id === selectedSortId }"
         >
-          {{ filter.name }}
+          {{ sort.name }}
         </button>
       </div>
     </div>
@@ -17,9 +17,9 @@
   
   <script>
   export default {
-    name: 'FilterLine',
+    name: 'SortLine',
     props: {
-      filters: {
+      sorts: {
         type: Array,
         required: true
       },
@@ -27,21 +27,21 @@
         type: String,
         required: true
       },
-      selectedFilterId: {
-        type: String,
-        default: ''
+      selectedSortId: {
+        type: Number,
+        default: 0
       }
     },
     methods: {
-      selectFilter(filter) {
-        this.$emit('filter-selected', filter.id);
+      selectSort(sort) {
+        this.$emit('sort-selected', sort.id);
       }
     }
   }
   </script>
   
   <style scoped>
-  .filter-line {
+  .sort-line {
     background-color: #35495e;
     padding: 0 15px;
     display: flex;
@@ -50,16 +50,16 @@
     padding-left:200px ;
   }
   
-  .filter-line-title {
+  .sort-line-title {
     color: #41B882;
     font-size: 1.5em;
   }
   
-  .filter-line-filters {
+  .sort-line-sorts {
     display: flex;
   }
   
-  .filter-line-filter {
+  .sort-line-sort {
     color: #41B882;
     background-color: #35495e;
     padding: 8px 12px;
@@ -70,12 +70,12 @@
     transition: background-color 0.3s, color 0.3s;
   }
   
-  .filter-line-filter:hover {
+  .sort-line-sort:hover {
     background-color: #41B882;
     color: #35495e;
   }
   
-  .filter-line-filter-active {
+  .sort-line-sort-active {
     background-color: #41B882;
     color: #35495e;
   }

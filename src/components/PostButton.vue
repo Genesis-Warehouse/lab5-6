@@ -27,6 +27,7 @@
     color: #164B70;
     padding: 10px;
     border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
   }
   
   .post_button span {

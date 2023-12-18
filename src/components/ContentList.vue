@@ -1,7 +1,13 @@
 <template>
     <div>
       <div v-if="selectedCategory === 1">
-        <ProductList ref="contentRef" @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
+        <ProductList 
+        ref="contentRef" 
+        @postNewElement="postNewElement" 
+        @deleteContent="deleteContent" 
+        @editContent="editContent"
+        :sortNumber="sortNumber"
+        />
       </div>
       <div v-else-if="selectedCategory === 2">
         <BatchesList ref="contentRef" @postNewElement="postNewElement" @deleteContent="deleteContent" @editContent="editContent"/>
@@ -28,6 +34,9 @@
         required: true,
         validator: value => value >= 1 && value <= 3,
       },
+      sortNumber:{
+        type:Number
+      }
     },
     components: {
       ProductList,

@@ -4,23 +4,30 @@
         <CategoryList @update-selected-category="updateSelectedCategory"/>  
       </div>
       <div class="content">
-        <FilterLine
-        :filters="filters"
+        <SortLine
+        :sorts="sorts"
         :categoryTitle="selectedCategory.title"
-        :selectedFilterId="selectedFilterId"
-        @filter-selected="onFilterSelected"
+        :selectedSortId="selectedSortId"
+        @sort-selected="onSortSelected"
       />
       <PopupWindow :selectedCategory="selectedCategory" :popupSettings="popupSettings" @contentUpdate="contentUpdate" ref="popupRef"></PopupWindow>
       <!-- <StorageItems :items="storageItems" /> -->
         <!-- Остальной контент страницы -->
-        <ContentList ref="contentRef" :selectedCategory="this.selectedCategory" @editContent="editContent" @deleteContent="deleteContent" @postNewElement="postNewElement"></ContentList>
+        <ContentList 
+        ref="contentRef" 
+        :selectedCategory="this.selectedCategory" 
+        @editContent="editContent" 
+        @deleteContent="deleteContent" 
+        @postNewElement="postNewElement"
+        :sortNumber="selectedSortId"
+        ></ContentList>
       </div>
     </div>
   </template>
   
   <script>
   import CategoryList from './CategoryList.vue';
-  import FilterLine from './FilterLine.vue';
+  import SortLine from './SortLine.vue';
   // import StorageItems from './StorageItems.vue';
   import ContentList from './ContentList.vue';
   import PopupWindow from './PopupWindow.vue';
@@ -28,7 +35,7 @@
     name: 'MainPage',
     components: {
       CategoryList,
-      FilterLine,
+      SortLine,
       // StorageItems,
       ContentList,
       PopupWindow
@@ -45,13 +52,14 @@
           { id: '2', name: 'Партии' },
           { id: '3', name: 'Разделы склада' }
         ],
-        filters: [
-          { id: '1', name: 'f1' },
-          { id: '2', name: 'f2' },
-          { id: '3', name: 'f3' }
+        sorts: [
+          {id:0, name:'Сортировать по:'},
+          { id: 1, name: 'Цене' },
+          { id: 2, name: 'Дате выпуска' },
+          { id: 3, name: 'Сроку годности' }
         ],
         // selectedCategory: { id: '1', title: 'Category 1' },  
-        selectedFilterId: '',
+        selectedSortId: 0,
       //   storageItems: [
       //   { id: 'item1', name: 'Item 1', details: 'Details for Item 1', isExpanded: false },
       //   { id: 'item2', name: 'Item 2', details: 'Details for Item 2', isExpanded: false },
@@ -62,9 +70,10 @@
       };
     },
     methods: {
-      onFilterSelected(filterId) {
-        this.selectedFilterId = filterId;
-        // Здесь можно обработать выбор фильтра и выполнить необходимые действия
+      onSortSelected(sortId) {
+        this.selectedSortId = sortId;
+        this.contentUpdate();
+        // Здесь можно обработать выбор сортировки и выполнить необходимые действия
       },
       updateSelectedCategory(selCat){
         this.selectedCategory=selCat;

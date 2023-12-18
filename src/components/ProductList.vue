@@ -3,7 +3,7 @@
       <h1>Список товаров</h1>
       <PostButton @postNewElement="postNewElement"></PostButton>
       <ul>
-        <ProductElement @editClicked="editClicked" @deleteClicked="deleteClicked" v-for="product in products" :key="product.id" :product="product"></ProductElement>
+        <ProductElement @editClicked="editClicked" @deleteClicked="deleteClicked" v-for="product in sortedList" :key="product.id" :product="product"></ProductElement>
       </ul>
     </div>
   </template>
@@ -14,9 +14,15 @@
   import PostButton from './PostButton.vue';
   export default {
     name: 'ProductList',
+    props:{
+      sortNumber:{
+        type:Number
+      }
+    },
     data() {
         return {
             products: [],
+            sortedList:[]
         };
     },
     created() {
@@ -27,6 +33,7 @@
             axiosConfig.get('/products/all')
                 .then(response => {
                 this.products = response.data;
+                this.sortList(this.sortNumber);
             })
                 .catch(error => {
                 console.error('Ошибка при загрузке данных:', error);
@@ -40,6 +47,29 @@
         },
         postNewElement(){
           this.$emit('postNewElement')
+        },
+        sortList(sortNumber){
+          switch (sortNumber) {
+            case 1:
+              this.sortedList= this.products.slice().sort((a,b)=>{
+              return a['price']-b['price'];
+              })
+              break;
+            case 2:
+              this.sortedList= this.products.slice().sort((a,b)=>{
+              return new Date(a.production_date).setHours(0,0,0,0)-new Date(b.production_date).setHours(0,0,0,0);
+              })
+              break;
+            case 3:
+              this.sortedList= this.products.slice().sort((a,b)=>{
+              return new Date(a.expiration_date).setHours(0,0,0,0)-new Date(b.expiration_date).setHours(0,0,0,0);
+              })
+              break;
+          
+            default:
+              this.sortedList= this.products.slice();
+              break;
+          }
         }
     },
     components: { ProductElement, PostButton }

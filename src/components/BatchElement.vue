@@ -41,10 +41,11 @@ img{
     height: 20px;
     padding: 5px;
     margin: 0 5px 0 5px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 15%;
 }
 img:hover{
     background-color: #164B70;
-    border-radius: 15%;
     cursor: pointer;
 }
 </style>
